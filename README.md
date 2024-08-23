@@ -14,5 +14,5 @@ python3 main.py
 ```
 
 ## License
-This repo is under the AGPL-3.0 license. See the [LICENSE](LICENSE) file for details.
+This repo is under the AGPL-3.0 license. See the [LICENSE](LICENSE) file for details.  
 Copyright (c) 2024 [Daiki Nomura](https://daikinomura.tech)
