@@ -5,6 +5,7 @@ import pyopenjtalk
 import numpy as np
 from scipy.io import wavfile
 import json
+import fcntl
 
 def get_history():
         # 西之表市防災ラジオ配信履歴のURL
@@ -94,4 +95,16 @@ def main():
         save_data(read_list, "read.json")
 
 if __name__ == "__main__":
-        main()
+        # 二重起動を防ぐ
+        with open("tmp", "w") as f:
+                try:
+                        # ロック取得
+                        fcntl.flock(f.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+                except IOError:
+                        # ロック獲得失敗→終了
+                        exit(0)
+                try:
+                        main()
+                finally:
+                        # ロック解除
+                        fcntl.flock(f.fileno(), fcntl.LOCK_UN)
